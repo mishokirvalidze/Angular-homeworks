@@ -15,4 +15,8 @@ export class UsersComponent implements OnInit {
   }
 
   usersList: User[] = [];
+
+  delate(userData: User): void {
+    this.usersList = this.usersList.filter((user) => user.id !== userData.id);
+  }
 }
