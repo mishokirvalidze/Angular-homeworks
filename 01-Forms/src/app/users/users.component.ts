@@ -14,9 +14,11 @@ export class UsersComponent implements OnInit {
     this.usersList = this.users.usersList;
   }
 
-  usersList: User[] = [];
+  public usersList: User[] = [];
 
-  delate(userData: User): void {
-    this.usersList = this.usersList.filter((user) => user.id !== userData.id);
+  public delate(userData: User): void {
+    if (confirm('are you sure')) {
+      this.usersList = this.usersList.filter((user) => user.id !== userData.id);
+    }
   }
 }
