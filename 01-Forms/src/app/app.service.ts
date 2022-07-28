@@ -10,18 +10,18 @@ export class AppService {
   usersList: User[] = [
     {
       email: 'email@gmail.com',
-      password: '1234',
-      confirmPassword: '1234',
-      nickname: 'nick',
-      phoneNumber: 995302050,
+      password: '1234567',
+      confirmPassword: '1234567',
+      nickname: 'nickName',
+      phoneNumber: '+995 555-302-050',
       website: 'website.com',
     },
     {
       email: 'example@mail.com',
-      password: '12345',
-      confirmPassword: '12345',
-      nickname: 'nick__',
-      phoneNumber: 995453214,
+      password: '12345678',
+      confirmPassword: '12345678',
+      nickname: 'nick-name',
+      phoneNumber: '+995 555-453-214',
       website: 'web.com',
     },
   ];

@@ -5,7 +5,7 @@ export interface User {
   password: string;
   confirmPassword: string;
   nickname: string;
-  phoneNumber: number;
+  phoneNumber: string;
   website: string;
 }
 
@@ -16,5 +16,5 @@ export interface FormType {
   nickname: FormControl;
   phoneNumber: FormControl;
   website: FormControl;
-  check: FormControl;
+  check?: FormControl;
 }
