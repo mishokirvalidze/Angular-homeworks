@@ -23,9 +23,15 @@ export class UsersComponent implements OnInit {
         Are you sure?`
       )
     ) {
-      this.usersList = this.usersList.filter(
-        (user) => user.email !== userData.email
-      );
+      // this.usersList = this.usersList.filter(
+      //   (user) => user.email !== userData.email
+      // );
+
+      this.usersList.forEach((user, index) => {
+        if (user.email === userData.email) {
+          this.usersList.splice(index, 1);
+        }
+      });
     }
   }
 }

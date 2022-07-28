@@ -14,15 +14,15 @@ export class AppService {
       confirmPassword: '1234567',
       nickname: 'nickName',
       phoneNumber: '+995 555-302-050',
-      website: 'website.com',
+      website: 'facebook.com',
     },
     {
       email: 'example@mail.com',
-      password: '12345678',
-      confirmPassword: '12345678',
+      password: 'password',
+      confirmPassword: 'password',
       nickname: 'nick-name',
       phoneNumber: '+995 555-453-214',
-      website: 'web.com',
+      website: 'google.com',
     },
   ];
 }
