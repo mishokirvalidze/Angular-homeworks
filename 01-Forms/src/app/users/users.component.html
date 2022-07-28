@@ -3,7 +3,6 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">Id</th>
                     <th scope="col">Email</th>
                     <th scope="col">Password</th>
                     <th scope="col">Confirm Password</th>
@@ -14,15 +13,14 @@
                 </tr>
             </thead>
             <tbody>
-                <ng-container *ngFor="let user of usersList">
+                <ng-container *ngFor="let user of usersList; let i = index">
                     <tr>
-                        <td>{{user.id}}</td>
                         <td>{{user.email}}</td>
                         <td>{{user.password}}</td>
                         <td>{{user.confirmPassword}}</td>
                         <td>{{user.nickname}}</td>
                         <td>{{user.phoneNumber}}</td>
-                        <td>{{user.Website}}</td>
+                        <td>{{user.website}}</td>
                         <td>
                             <button routerLink="/edit" class="btn btn-warning btn-sm mx-2"><i
                                     class="fa-solid fa-edit"></i> edit</button>

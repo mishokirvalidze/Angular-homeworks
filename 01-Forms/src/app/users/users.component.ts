@@ -17,8 +17,15 @@ export class UsersComponent implements OnInit {
   public usersList: User[] = [];
 
   public delate(userData: User): void {
-    if (confirm('are you sure')) {
-      this.usersList = this.usersList.filter((user) => user.id !== userData.id);
+    if (
+      confirm(
+        `This action will remove a user with this email: ${userData.email}
+        Are you sure?`
+      )
+    ) {
+      this.usersList = this.usersList.filter(
+        (user) => user.email !== userData.email
+      );
     }
   }
 }
