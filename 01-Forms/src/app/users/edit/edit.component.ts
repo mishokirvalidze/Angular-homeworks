@@ -60,7 +60,7 @@ export class EditComponent implements OnInit {
     ]),
     phoneNumber: new FormControl('', [
       Validators.pattern(
-        /^\+[0-9]{1,3}\s[0-9]{2,3}\-[0-9]{3}\-[0-9]{3}(?:x.+)?$/
+        /^\+?([995]{3})\s[0-9]{2,3}\-[0-9]{3}\-[0-9]{3}(?:x.+)?$/
       ),
       Validators.required,
     ]),

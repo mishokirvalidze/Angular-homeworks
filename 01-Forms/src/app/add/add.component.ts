@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./add.component.scss'],
 })
 export class AddComponent implements OnInit {
+  checked = false;
+
   formGroup = new FormGroup<FormType>({
     email: new FormControl('', [Validators.email, Validators.required]),
     password: new FormControl('', [
@@ -29,7 +31,7 @@ export class AddComponent implements OnInit {
     ]),
     phoneNumber: new FormControl('', [
       Validators.pattern(
-        /^\+[0-9]{1,3}\s[0-9]{2,3}\-[0-9]{3}\-[0-9]{3}(?:x.+)?$/
+        /^\+?([995]{3})\s[0-9]{2,3}\-[0-9]{3}\-[0-9]{3}(?:x.+)?$/
       ),
       Validators.required,
     ]),
@@ -49,5 +51,13 @@ export class AddComponent implements OnInit {
   public add(): void {
     this.userService.usersList.push(<User>this.formGroup.value);
     this.router.navigate(['/']);
+  }
+
+  check(event: Event): void {
+    if ((<HTMLInputElement>event.target).checked) {
+      this.checked = true;
+    } else {
+      this.checked = false;
+    }
   }
 }

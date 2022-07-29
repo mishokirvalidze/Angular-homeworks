@@ -35,13 +35,13 @@
         </div>
 
         <div class="mb-3 form-check">
-            <input type="checkbox" formControlName="check" class="form-check-input" id="check">
+            <input (click)="check($event)" type="checkbox" formControlName="check" class="form-check-input" id="check">
             <label class="form-check-label" for="check">I have read the <a href="#">agreement</a></label>
         </div>
 
         <div class="col-3 mx-auto mt-3">
             <button (click)="add()"
-                [disabled]="formGroup.invalid || formGroup.value.password !== formGroup.value.confirmPassword"
+                [disabled]="formGroup.invalid || !checked || formGroup.value.password !== formGroup.value.confirmPassword"
                 class="btn btn-primary" type="submit">Register</button>
         </div>
 
