@@ -9,7 +9,8 @@ import { Icurrency, Iapi } from '../model/currency.model';
 export class CurrencyService {
   constructor(private http: HttpClient) {}
 
-  private api_key = '792e3cc9306f905f93f76746';
+  // private api_key = '792e3cc9306f905f93f76746';
+  private api_key = '2fb4b1afac7b69169c883a32';
 
   private baseUrl = `https://v6.exchangerate-api.com/v6/${this.api_key}/pair`;
 
