@@ -74,14 +74,17 @@ export class RxjsComponent implements OnInit {
       .request()
       .pipe(
         tap((data) => {
-          this.form.patchValue({
-            secondInput:
-              Math.round(
-                (data.conversion_rate * (this.form.value.firstInput as number) +
-                  Number.EPSILON) *
-                  100
-              ) / 100,
-          });
+          if ((this.form.value.firstInput as number) >= 0) {
+            this.form.patchValue({
+              secondInput:
+                Math.round(
+                  (data.conversion_rate *
+                    (this.form.value.firstInput as number) +
+                    Number.EPSILON) *
+                    100
+                ) / 100,
+            });
+          }
         })
       )
       .subscribe();
@@ -92,15 +95,17 @@ export class RxjsComponent implements OnInit {
       .request()
       .pipe(
         tap((data) => {
-          this.form.patchValue({
-            firstInput:
-              Math.round(
-                ((this.form.value.secondInput as number) /
-                  data.conversion_rate +
-                  Number.EPSILON) *
-                  100
-              ) / 100,
-          });
+          if ((this.form.value.secondInput as number) >= 0) {
+            this.form.patchValue({
+              firstInput:
+                Math.round(
+                  ((this.form.value.secondInput as number) /
+                    data.conversion_rate +
+                    Number.EPSILON) *
+                    100
+                ) / 100,
+            });
+          }
         })
       )
       .subscribe();
