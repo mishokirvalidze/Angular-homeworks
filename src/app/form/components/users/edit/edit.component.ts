@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormType, User } from 'src/app/model/user.model';
-import { AppService } from '../../app.service';
+import { FormType, User } from '../../../model/user.model';
+import { FormService } from '../../../service/form.service';
 
 @Component({
   selector: 'app-edit',
@@ -13,7 +13,7 @@ export class EditComponent implements OnInit {
   constructor(
     private activeRoute: ActivatedRoute,
     private route: Router,
-    private userService: AppService
+    private userService: FormService
   ) {}
 
   private index: number = 0;
@@ -79,6 +79,6 @@ export class EditComponent implements OnInit {
       <User>this.formGroup.value
     );
 
-    this.route.navigate(['/']);
+    this.route.navigate(['/form/user']);
   }
 }

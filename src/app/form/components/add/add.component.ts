@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { FormType, User } from '../model/user.model';
-import { AppService } from '../app.service';
+import { FormType, User } from '../../model/user.model';
+import { FormService } from '../../service/form.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -44,13 +44,13 @@ export class AddComponent implements OnInit {
     check: new FormControl('', Validators.required),
   });
 
-  constructor(private userService: AppService, private router: Router) {}
+  constructor(private userService: FormService, private router: Router) {}
 
   ngOnInit(): void {}
 
   public add(): void {
     this.userService.usersList.push(<User>this.formGroup.value);
-    this.router.navigate(['/']);
+    this.router.navigate(['/form/user']);
   }
 
   check(event: Event): void {
