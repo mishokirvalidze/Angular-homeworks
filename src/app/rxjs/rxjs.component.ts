@@ -55,7 +55,7 @@ export class RxjsComponent implements OnInit {
           this.currensyService.to = item.abbreviation;
           this.index = i;
 
-          this.toRequest();
+          this.fromRequest();
         }
       }
     });
