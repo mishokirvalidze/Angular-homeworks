@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NavComponent } from './nav/nav.component';
+import { NavComponent } from './nav-component/nav.component';
 import { FormComponent } from './form/form.component';
 import { AddComponent } from './form/components/add/add.component';
 import { UsersComponent } from './form/components/users/users.component';

@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormModule } from './form/form.module';
-import { NavComponent } from './nav/nav.component';
+import { NavComponent } from './nav-component/nav.component';
 import { RxjsModule } from './rxjs/rxjs.module';
 
 @NgModule({
