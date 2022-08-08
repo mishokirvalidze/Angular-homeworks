@@ -5,10 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormModule } from './form/form.module';
 import { NavComponent } from './nav/nav.component';
+import { RxjsModule } from './rxjs/rxjs.module';
 
 @NgModule({
   declarations: [AppComponent, NavComponent],
-  imports: [BrowserModule, AppRoutingModule, FormModule],
+  imports: [BrowserModule, AppRoutingModule, FormModule, RxjsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

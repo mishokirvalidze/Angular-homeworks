@@ -5,6 +5,7 @@ import { FormComponent } from './form/form.component';
 import { AddComponent } from './form/components/add/add.component';
 import { UsersComponent } from './form/components/users/users.component';
 import { EditComponent } from './form/components/users/edit/edit.component';
+import { RxjsComponent } from './rxjs/rxjs.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,11 @@ const routes: Routes = [
       { path: 'user', component: UsersComponent, title: 'users' },
       { path: 'edit', component: EditComponent, title: 'edit user' },
     ],
+  },
+  {
+    path: 'rxjs',
+    component: RxjsComponent,
+    title: 'rxjs homework',
   },
 ];
 
