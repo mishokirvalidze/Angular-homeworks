@@ -41,53 +41,21 @@ export class RxjsComponent implements OnInit {
 
   public onChange(event: Event): void {
     this.currencies.forEach((item, i) => {
-      if ((event.target as HTMLSelectElement).id === 'select') {
-        if (item.abbreviation === (event.target as HTMLSelectElement).value) {
+      if (item.abbreviation === (event.target as HTMLSelectElement).value) {
+        if ((event.target as HTMLSelectElement).id === 'select') {
           this.labelImage_1 = item.img;
           this.inputIcon_1 = item.symbol;
           this.currensyService.from = item.abbreviation;
           this.index2 = i;
 
-          this.currensyService
-            .request()
-            .pipe(
-              tap((data) => {
-                this.form.patchValue({
-                  secondInput:
-                    Math.round(
-                      (data.conversion_rate *
-                        (this.form.value.firstInput as number) +
-                        Number.EPSILON) *
-                        100
-                    ) / 100,
-                });
-              })
-            )
-            .subscribe();
-        }
-      } else {
-        if (item.abbreviation === (event.target as HTMLSelectElement).value) {
+          this.fromRequest();
+        } else {
           this.labelImage_2 = item.img;
           this.inputIcon_2 = item.symbol;
           this.currensyService.to = item.abbreviation;
           this.index = i;
 
-          this.currensyService
-            .request()
-            .pipe(
-              tap((data) => {
-                this.form.patchValue({
-                  firstInput:
-                    Math.round(
-                      ((this.form.value.secondInput as number) /
-                        data.conversion_rate +
-                        Number.EPSILON) *
-                        100
-                    ) / 100,
-                });
-              })
-            )
-            .subscribe();
+          this.toRequest();
         }
       }
     });
@@ -95,41 +63,46 @@ export class RxjsComponent implements OnInit {
 
   public onInput(event: Event): void {
     if ((event.target as HTMLInputElement).id === 'firstInput') {
-      this.currensyService
-        .request()
-        .pipe(
-          tap((data) => {
-            this.form.patchValue({
-              secondInput:
-                Math.round(
-                  (data.conversion_rate *
-                    (this.form.value.firstInput as number) +
-                    Number.EPSILON) *
-                    100
-                ) / 100,
-            });
-          })
-        )
-        .subscribe();
+      this.fromRequest();
     } else {
-      this.currensyService
-        .request()
-        .pipe(
-          tap((data) => {
-            let num =
+      this.toRequest();
+    }
+  }
+
+  private fromRequest(): void {
+    this.currensyService
+      .request()
+      .pipe(
+        tap((data) => {
+          this.form.patchValue({
+            secondInput:
+              Math.round(
+                (data.conversion_rate * (this.form.value.firstInput as number) +
+                  Number.EPSILON) *
+                  100
+              ) / 100,
+          });
+        })
+      )
+      .subscribe();
+  }
+
+  private toRequest(): void {
+    this.currensyService
+      .request()
+      .pipe(
+        tap((data) => {
+          this.form.patchValue({
+            firstInput:
               Math.round(
                 ((this.form.value.secondInput as number) /
                   data.conversion_rate +
                   Number.EPSILON) *
                   100
-              ) / 100;
-
-            this.form.patchValue({
-              firstInput: num,
-            });
-          })
-        )
-        .subscribe();
-    }
+              ) / 100,
+          });
+        })
+      )
+      .subscribe();
   }
 }
