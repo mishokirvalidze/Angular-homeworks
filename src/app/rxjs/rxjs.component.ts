@@ -27,12 +27,6 @@ export class RxjsComponent implements OnInit {
   public index = 27;
   public index2 = 64;
 
-  conversion_rate = 0;
-
-  numb = 0;
-
-  numb2 = 0;
-
   constructor(private currensyService: CurrencyService) {}
 
   ngOnInit(): void {
