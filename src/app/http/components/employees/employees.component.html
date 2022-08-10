@@ -1,0 +1,38 @@
+<ng-container *ngIf="true else notFound">
+    <div class="container fs-5 border rounded pt-4 mx-auto">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Salary</th>
+                    <th scope="col" class="th-cw">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="text-center">
+                            <button class="btn btn-primary btn-sm"><i class="fa-solid fa-book"></i></button>
+                            <button class="btn btn-warning btn-sm mx-2"><i class="fa-solid fa-edit"></i></button>
+                            <button class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-can"></i></button>
+
+                        </td>
+                    </tr>
+                </ng-container>
+
+            </tbody>
+        </table>
+
+
+    </div>
+</ng-container>
+
+<ng-template #notFound>
+    <div class="container mt-5">
+        <p class="text-center text-danger fs-5">Employees not found</p>
+    </div>
+</ng-template>
