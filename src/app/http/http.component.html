@@ -1,7 +1,15 @@
 <h3 class="mb-3 mt-2 text-center"><a routerLink="" class="nav-link">Homeworks</a></h3>
 
-<div class="container p-3 bg-Purple-Navy d-flex justify-content-between">
+<div class="container rounded p-3 bg-Purple-Navy d-flex justify-content-between">
     <h4 class="text-white">Employees Dashboard</h4>
-    <button class="btn btn-primary round"><i class="fa-solid fa-plus"></i> Add
-        Employee</button>
+    <button (click)="showForm = !showForm" [disabled]="showForm" class="btn btn-primary round">
+        <i class="fa-solid fa-plus"></i> Add Employee
+    </button>
 </div>
+
+<app-employees (idForDelete)="delete($event)" (IdForEdit)="edit($event)" [listOfEmployees]="employees"
+    [showForm]="showForm"></app-employees>
+
+<ng-container *ngIf="showForm">
+    <app-form (cancelForm)="cancel()" (addEmployee)="add($event)"></app-form>
+</ng-container>
