@@ -1,5 +1,5 @@
 <div class="container col-md-5 my-5 bg-dark position-absolute top-50 start-50 translate-middle px-3 py-3 rounded">
-    <form>
+    <form [formGroup]="form">
 
         <div class="mb-3">
             <label for="name" class="form-label text-white">Name</label>
@@ -19,11 +19,11 @@
 
         <div class="container d-flex justify-content-between mt-4 ">
             <div class=" col-3 ">
-                <button class="btn btn-primary" type="submit">Add</button>
+                <button (click)="add()" [disabled]="form.invalid" class="btn btn-primary" type="submit">Add</button>
             </div>
 
             <div class=" col-3">
-                <button class="btn btn-warning" type="button">Cancel</button>
+                <button (click)="cancel()" class="btn btn-warning" type="button">Cancel</button>
             </div>
 
         </div>
