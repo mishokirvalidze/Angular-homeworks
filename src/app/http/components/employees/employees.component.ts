@@ -10,19 +10,15 @@ export class EmployeesComponent implements OnInit {
   @Input() listOfEmployees: AddedEmployee[] = [];
 
   @Input() showForm = false;
+  @Input() readModal = false;
 
-  @Output() IdForEdit = new EventEmitter<string>();
-  @Output() idForDelete = new EventEmitter<string>();
+  @Output() getID = new EventEmitter<string[]>();
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  public getIdForEdit(id: string): void {
-    this.IdForEdit.emit(id);
-  }
-
-  public getIdForDelete(id: string): void {
-    this.idForDelete.emit(id);
+  public getId(clickData: string[]): void {
+    this.getID.emit(clickData);
   }
 }

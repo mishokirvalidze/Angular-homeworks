@@ -17,16 +17,17 @@
                         <td>{{ employee.salary }}</td>
                         <td class="text-center">
 
-                            <button [disabled]="showForm" class="btn btn-primary btn-sm">
+                            <button [disabled]="showForm || readModal" (click)="getId([employee.id, 'read'])"
+                                class="btn btn-primary btn-sm">
                                 <i class="fa-solid fa-book"></i>
                             </button>
 
-                            <button [disabled]="showForm" (click)="getIdForEdit(employee.id)"
+                            <button [disabled]="showForm || readModal" (click)="getId([employee.id, 'edit'])"
                                 class="btn btn-warning btn-sm mx-2">
                                 <i class="fa-solid fa-edit"></i>
                             </button>
 
-                            <button [disabled]="showForm" (click)="getIdForDelete(employee.id)"
+                            <button [disabled]="showForm || readModal" (click)="getId([employee.id, 'delete'])"
                                 class="btn btn-danger btn-sm">
                                 <i class="fa-solid fa-trash-can"></i>
                             </button>
