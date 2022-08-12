@@ -9,48 +9,52 @@ import { tap } from 'rxjs';
   styleUrls: ['./http.component.scss'],
 })
 export class HttpComponent implements OnInit {
-  showForm = false;
+  public showForm = false;
+
+  public editForm = false;
+
+  public readModal = false;
+
+  private id = '';
 
   public employees: AddedEmployee[] = [];
 
-  employee: Iemployee = {
+  public employee: Iemployee = {
     name: '',
     age: 0,
     salary: 0,
   };
 
-  constructor(private ser: HttpService) {}
+  constructor(private service: HttpService) {}
 
   ngOnInit(): void {
     this.update();
   }
 
   private update(): void {
-    this.ser
+    this.service
       .getEmployees()
       .pipe(tap((data) => (this.employees = data)))
       .subscribe();
   }
 
   public delete(id: string): void {
-    this.ser.deleteEmployee(id);
-    this.update();
+    this.service.deleteEmployee(id);
+    setTimeout(() => {
+      this.update();
+    }, 400);
   }
 
   public post(employee: Iemployee): void {
-    this.ser.postEmployee(employee);
-    this.update();
-  }
-
-  public add(employeeData: Iemployee): void {
-    this.employee = employeeData;
-    this.post(employeeData);
+    this.service.postEmployee(employee);
     this.cancel();
-    this.update();
+    setTimeout(() => {
+      this.update();
+    }, 400);
   }
 
-  public edit(id: string): void {
-    this.ser
+  public getEmployeeData(id: string): void {
+    this.service
       .getEmployee(id)
       .pipe(
         tap((employeeData) => {
@@ -60,7 +64,37 @@ export class HttpComponent implements OnInit {
       .subscribe();
   }
 
+  public updateEmpl(employeeData: Iemployee) {
+    this.service.updateEmployee(this.id, employeeData);
+    this.cancel();
+    setTimeout(() => {
+      this.update();
+    }, 400);
+  }
+
   public cancel(): void {
     this.showForm = !this.showForm;
+  }
+
+  public read(id: string) {
+    this.getEmployeeData(id);
+    this.readModal = !this.readModal;
+  }
+
+  public closeRead() {
+    this.readModal = !this.readModal;
+  }
+
+  public readEditDelete(clickData: string[]): void {
+    if (clickData[1] === 'delete') {
+      this.delete(clickData[0]);
+    } else if (clickData[1] === 'edit') {
+      this.id = clickData[0];
+      this.getEmployeeData(clickData[0]);
+      this.editForm = true;
+      this.showForm = true;
+    } else {
+      this.read(clickData[0]);
+    }
   }
 }
