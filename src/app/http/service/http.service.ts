@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AddedEmployee, Iemployee } from '../model/http.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
