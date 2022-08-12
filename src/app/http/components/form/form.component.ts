@@ -3,7 +3,8 @@ import {
   OnInit,
   Output,
   EventEmitter,
-  NgModule,
+  Input,
+  OnDestroy,
 } from '@angular/core';
 import { Iemployee, Iform } from '../../model/http.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -13,9 +14,19 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnDestroy {
+  @Input() editForm = false;
+
+  @Input() editEmployeeData: Iemployee = {
+    name: '',
+    age: 0,
+    salary: 0,
+  };
+
+  @Output() editFormChange = new EventEmitter<boolean>();
   @Output() cancelForm = new EventEmitter<void>();
   @Output() addEmployee = new EventEmitter<Iemployee>();
+  @Output() employeeUpdate = new EventEmitter<Iemployee>();
 
   form = new FormGroup<Iform>({
     name: new FormControl('', {
@@ -34,13 +45,27 @@ export class FormComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    setTimeout(() => {
+      if (this.editForm) {
+        this.form.patchValue(this.editEmployeeData);
+      }
+    }, 300);
+  }
+
+  ngOnDestroy(): void {
+    this.form.reset();
+    this.editForm = false;
+    this.editFormChange.emit(this.editForm);
+  }
 
   public cancel(): void {
     this.cancelForm.emit();
   }
 
-  public add(): void {
-    this.addEmployee.emit(this.form.value as Iemployee);
+  public addOrEdit(): void {
+    this.editForm
+      ? this.employeeUpdate.emit(this.form.value as Iemployee)
+      : this.addEmployee.emit(this.form.value as Iemployee);
   }
 }

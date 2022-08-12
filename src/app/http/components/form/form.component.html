@@ -18,9 +18,13 @@
         </div>
 
         <div class="container d-flex justify-content-between mt-4 ">
-            <div class=" col-3 ">
-                <button (click)="add()" [disabled]="form.invalid" class="btn btn-primary" type="submit">Add</button>
-            </div>
+
+            <ng-container>
+                <div class=" col-3 ">
+                    <input (click)="addOrEdit()" [disabled]="form.invalid || !form.dirty" class="btn btn-primary"
+                        type="submit" value="{{ editForm ? 'Edit' : 'Add' }}">
+                </div>
+            </ng-container>
 
             <div class=" col-3">
                 <button (click)="cancel()" class="btn btn-warning" type="button">Cancel</button>
