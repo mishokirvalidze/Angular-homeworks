@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AddedEmployee, Iemployee } from '../model/http.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -27,5 +28,9 @@ export class HttpService {
 
   public deleteEmployee(id: string): void {
     this.http.delete<void>(this.baseUrl + id).subscribe();
+  }
+
+  public updateEmployee(id: string, updateData: Iemployee): void {
+    this.http.put(this.baseUrl + id, updateData).subscribe();
   }
 }
