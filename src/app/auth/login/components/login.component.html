@@ -1,0 +1,36 @@
+<div class="container cw mt-5">
+
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+            <ng-container *ngIf="service.error | async as error">
+                <ng-container *ngIf="error === 'Cannot find user'; else other">
+                    <p class="bg-danger rounded text-white px-2 py-2">{{ error }} please <a routerLink="/register">
+                            Register</a>
+                    </p>
+                </ng-container>
+
+                <ng-template #other>
+                    <p class="bg-danger rounded text-white px-2 py-2">{{ error }}
+                    </p>
+                </ng-template>
+            </ng-container>
+            <form [formGroup]=" loginForm" (ngSubmit)="submit()">
+
+                <div class="form-outline mb-4">
+                    <input formControlName="email" type="email" id="loginName" class="form-control"
+                        placeholder="Enter email" />
+                </div>
+
+                <div class="form-outline mb-4">
+                    <input formControlName="password" type="password" id="loginPassword" class="form-control"
+                        placeholder="Enter password" />
+                </div>
+
+
+                <input [disabled]="loginForm.invalid" type="submit" class="btn btn-primary w-100 mb-4" value="Log in">
+
+            </form>
+        </div>
+        <p>Not a member <a routerLink="/register">register</a></p>
+    </div>
+</div>
