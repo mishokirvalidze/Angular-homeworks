@@ -1,0 +1,19 @@
+<div class="container rounded p-3 bg-Purple-Navy d-flex justify-content-between">
+    <h4 class="text-white">Employees Dashboard</h4>
+    <button (click)="showForm = !showForm" [disabled]="showForm || readModal" class="btn btn-primary round">
+        <i class="fa-solid fa-plus"></i> Add Employee
+    </button>
+</div>
+
+<app-employees-list (getID)="readEditDelete($event)" [listOfEmployees]="employees" [showForm]="showForm"
+    [readModal]="readModal"></app-employees-list>
+
+<ng-container *ngIf="showForm">
+    <app-employees-form (cancelForm)="cancel()" (addEmployee)="post($event)" (employeeUpdate)="updateEmpl($event)"
+        [(editForm)]="editForm" [editEmployeeData]="employee">
+    </app-employees-form>
+</ng-container>
+
+<ng-container *ngIf="readModal">
+    <app-read [readEmployee]="employee" (close)="closeRead()"></app-read>
+</ng-container>
