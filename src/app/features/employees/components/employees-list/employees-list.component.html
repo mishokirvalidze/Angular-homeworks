@@ -1,0 +1,67 @@
+<ng-container *ngIf="listOfEmployees.length else notFound">
+    <div class="container fs-5 border rounded pt-4 mx-auto">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Salary</th>
+                    <th scope="col" class="th-cw">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <ng-container *ngFor="let employee of listOfEmployees | paginate:{
+                        itemsPerPage:numOfEmployee,
+                        currentPage:page,
+                        totalItems:count
+                    }; let i= index ">
+                    <tr>
+                        <td>{{ employee.name }}</td>
+                        <td>{{ employee.age }}</td>
+                        <td>{{ employee.salary }}</td>
+                        <td class="text-center">
+
+                            <button [disabled]="showForm || readModal" (click)="getId([employee.id, 'read'])"
+                                class="btn btn-primary btn-sm">
+                                <i class="fa-solid fa-book"></i>
+                            </button>
+
+                            <button [disabled]="showForm || readModal" (click)="getId([employee.id, 'edit'])"
+                                class="btn btn-warning btn-sm mx-2">
+                                <i class="fa-solid fa-edit"></i>
+                            </button>
+
+                            <button [disabled]="showForm || readModal" (click)="getId([employee.id, 'delete'])"
+                                class="btn btn-danger btn-sm">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+
+                        </td>
+                    </tr>
+                </ng-container>
+
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-center">
+            <div>
+                <select (change)="changeNum($event)" class="form-select" aria-label="Default select example">
+                    <ng-container *ngFor="let size of employeeListSize">
+                        <option [value]="size">{{ size }}</option>
+                    </ng-container>
+                </select>
+            </div>
+            <pagination-controls previousLabel="prev" nextLabel="next" (pageChange)="onPageChange($event)">
+            </pagination-controls>
+        </div>
+
+    </div>
+</ng-container>
+
+<ng-template #notFound>
+    <div class="container mt-5">
+        <p class="text-center text-danger fs-5">Employees not found</p>
+    </div>
+</ng-template>
