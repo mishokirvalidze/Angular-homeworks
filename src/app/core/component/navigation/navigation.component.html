@@ -3,16 +3,16 @@
         <ul class="navbar-nav mr-auto">
             <ng-container *ngIf="service.isLoggedIn()">
                 <li class=" nav-item active">
-                    <a class="nav-link" routerLink="users">Users</a>
+                    <a class="nav-link" routerLink="users" routerLinkActive="active">Users</a>
                 </li>
             </ng-container>
             <li class="nav-item">
-                <a class="nav-link" routerLink="employees">Employees</a>
+                <a class="nav-link" routerLink="employees" routerLinkActive="active">Employees</a>
             </li>
 
             <ng-container *ngIf="service.isLoggedIn() && service.isRich()">
                 <li class=" nav-item">
-                    <a class="nav-link" routerLink="currency">Currency</a>
+                    <a class="nav-link" routerLink="currency" routerLinkActive="active">Currency</a>
                 </li>
             </ng-container>
 
@@ -24,11 +24,11 @@
 
             <ng-template #login>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="login">Log in</a>
+                    <a class="nav-link" routerLink="login" routerLinkActive="active">Log in</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="register">Register</a>
+                    <a class="nav-link" routerLink="register" routerLinkActive="active">Register</a>
                 </li>
             </ng-template>
 
