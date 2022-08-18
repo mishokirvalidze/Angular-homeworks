@@ -7,5 +7,5 @@ export interface FormType extends IloginFormControls {
   phoneNumber: FormControl<string>;
   salary: FormControl<number>;
   website: FormControl<string>;
-  check?: FormControl<string>;
+  check?: FormControl<boolean>;
 }

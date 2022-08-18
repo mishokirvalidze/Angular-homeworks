@@ -5,6 +5,7 @@ import { User } from 'src/app/shared/shared.interface';
 import { FormType } from '../model/register.model';
 import { SharedService } from '../../../shared/shared.service';
 import { tap } from 'rxjs';
+import { ReturnedUser } from '../../../shared/shared.interface';
 
 @Component({
   selector: 'app-register',
@@ -71,14 +72,37 @@ export class RegisterComponent implements OnInit, OnDestroy {
         ),
       ],
     }),
-    check: new FormControl('', {
+    check: new FormControl(false, {
       nonNullable: true,
       validators: [Validators.requiredTrue],
     }),
   });
 
+  edit = false;
+
   ngOnInit(): void {
-    // if (this.service.isLoggedIn()) this.router.navigateByUrl('/users');
+    this.activeRoute.queryParams
+      .pipe(
+        tap((data) => {
+          if ((data as { edit: boolean }).edit) {
+            this.edit = true;
+
+            let userData: ReturnedUser = history.state;
+
+            this.formGroup.patchValue({
+              nickname: userData.nickname,
+              website: userData.website,
+              salary: userData.salary,
+              email: userData.email,
+              phoneNumber: userData.phoneNumber,
+              check: true,
+            });
+          } else {
+            if (this.service.isLoggedIn()) this.router.navigateByUrl('/users');
+          }
+        })
+      )
+      .subscribe();
   }
 
   ngOnDestroy(): void {
@@ -86,6 +110,25 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   public submit(): void {
-    this.service.loginRegister(this.formGroup.value as User, '/register');
+    let id = Number(localStorage.getItem('id'));
+
+    let salary = this.formGroup.value.salary as unknown as string;
+
+    if (this.edit) {
+      this.service.edit(id, this.formGroup.value as ReturnedUser);
+
+      localStorage.removeItem('salary');
+
+      localStorage.setItem('salary', salary);
+
+      this.router.navigateByUrl('/users');
+    } else {
+      this.service.loginRegister(this.formGroup.value as User, '/register');
+    }
+  }
+
+  public cancel(): void {
+    this.formGroup.reset();
+    this.router.navigateByUrl('/');
   }
 }

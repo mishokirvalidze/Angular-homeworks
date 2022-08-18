@@ -26,6 +26,15 @@ export class UsersListComponent implements OnInit {
     id: 0,
   });
 
+  userData = {
+    nickname: '',
+    phoneNumber: '',
+    salary: 0,
+    website: '',
+    email: '',
+    id: 0,
+  };
+
   id = 0;
 
   usersList: ReturnedUser[] = [];
@@ -33,7 +42,9 @@ export class UsersListComponent implements OnInit {
   ngOnInit(): void {
     this.id = Number(localStorage.getItem('id'));
 
-    this.update();
+    setTimeout(() => {
+      this.update();
+    }, 300);
   }
 
   public delete(id: number): void {
@@ -52,9 +63,10 @@ export class UsersListComponent implements OnInit {
       .pipe(
         tap((data) => {
           this.usersList = data;
-          data.forEach((item) => {
+          data.forEach((item: ReturnedUser) => {
             if (item.id === this.id) {
-              this.user.next(item as ReturnedUser);
+              this.user.next(item);
+              this.userData = item;
             }
           });
         })
@@ -64,6 +76,7 @@ export class UsersListComponent implements OnInit {
 
   public edit(): void {
     this.route.navigate(['/edit'], {
+      state: { ...this.userData },
       queryParams: { edit: true },
     });
   }

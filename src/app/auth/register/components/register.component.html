@@ -40,24 +40,36 @@
             <input type="url" formControlName="website" class="form-control" id="Website" placeholder="Website">
         </div>
 
-        <div class="mb-3 form-check d-flex justify-content-between">
-            <div>
-                <input type="checkbox" formControlName="check" class="form-check-input" id="check">
-                <label class="form-check-label" for="check">I have read the <a href="#">agreement</a></label>
-            </div>
+        <ng-container *ngIf="!edit">
+            <div class="mb-3 form-check d-flex justify-content-between">
+                <div>
+                    <input type="checkbox" formControlName="check" class="form-check-input" id="check">
+                    <label class="form-check-label" for="check">I have read the <a href="#">agreement</a></label>
+                </div>
 
-            <p>Are you member <a routerLink="/login">Log in</a></p>
-        </div>
+                <p>Are you member <a routerLink="/login">Log in</a></p>
+            </div>
+        </ng-container>
 
         <ng-container *ngIf="service.error | async as error">
             <p class="bg-danger text-white rounded px-2 py-2"> {{error}} please <a routerLink="/login">Log in</a>
             </p>
         </ng-container>
 
-        <div class="col-3 mx-auto mt-3">
-            <input [disabled]="formGroup.invalid  || formGroup.value.password !== formGroup.value.confirmPassword"
-                class="btn btn-primary" type="submit" value="Register">
+        <div class="container d-flex justify-content-between">
+            <div class="col-3 mx-auto mt-3">
+                <input [disabled]="formGroup.invalid  || formGroup.value.password !== formGroup.value.confirmPassword"
+                    class="btn btn-primary" type="submit" [value]="edit ? 'Edit' : 'Register'">
+            </div>
+
+            <ng-container *ngIf="edit">
+                <div class="col-3 mx-auto mt-3">
+                    <button class="btn btn-primary" (click)="cancel()">Cancel</button>
+                </div>
+            </ng-container>
         </div>
+
+
 
     </form>
 </div>

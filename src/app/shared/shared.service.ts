@@ -25,7 +25,6 @@ export class SharedService {
             'salary',
             (data.user as ReturnedUser).salary.toString()
           );
-
           this.router.navigate(['/users']);
         }),
         catchError((err: HttpErrorResponse) => {
@@ -41,6 +40,10 @@ export class SharedService {
     localStorage.removeItem('id');
     localStorage.removeItem('salary');
     this.router.navigateByUrl('/login');
+  }
+
+  public edit(id: number, data: ReturnedUser): void {
+    this.http.put(this.baseUrl + '/users/' + id, data).subscribe();
   }
 
   public isLoggedIn(): boolean {
