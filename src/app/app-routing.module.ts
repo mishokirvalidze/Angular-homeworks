@@ -1,38 +1,55 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NavComponent } from './nav-component/nav.component';
-import { FormComponent } from './form/form.component';
-import { AddComponent } from './form/components/add/add.component';
-import { UsersComponent } from './form/components/users/users.component';
-import { EditComponent } from './form/components/users/edit/edit.component';
-import { RxjsComponent } from './rxjs/rxjs.component';
-import { HttpComponent } from './http/http.component';
+import { AuthGuard } from './shared/auth.guard';
+import { SalaryGuard } from './shared/salary.guard';
+import { PageNotFoundComponent } from './core/component/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: NavComponent,
-    title: 'Homeworks',
+    redirectTo: 'users',
+    pathMatch: 'full',
   },
   {
-    path: 'form',
-    component: FormComponent,
-    title: 'form homework',
-    children: [
-      { path: 'add', component: AddComponent, title: 'add user' },
-      { path: 'user', component: UsersComponent, title: 'users' },
-      { path: 'edit', component: EditComponent, title: 'edit user' },
-    ],
+    path: 'login',
+    loadChildren: () =>
+      import('./auth/login/login.module').then((m) => m.LoginModule),
   },
   {
-    path: 'rxjs',
-    component: RxjsComponent,
-    title: 'rxjs homework',
+    path: 'register',
+    loadChildren: () =>
+      import('./auth/register/register.module').then((m) => m.RegisterModule),
   },
   {
-    path: 'http',
-    component: HttpComponent,
-    title: 'http homework',
+    path: 'employees',
+    loadChildren: () =>
+      import('./features/employees/employees.module').then(
+        (m) => m.EmployeesModule
+      ),
+  },
+  {
+    path: 'currency',
+    loadChildren: () =>
+      import('./features/currency/currency.module').then(
+        (m) => m.CurrencyModule
+      ),
+    canActivate: [AuthGuard, SalaryGuard],
+  },
+  {
+    path: 'users',
+    loadChildren: () =>
+      import('./features/users/users.module').then((m) => m.UsersModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'edit',
+    redirectTo: 'register',
+    pathMatch: 'full',
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
+    title: 'Page not found',
   },
 ];
 
